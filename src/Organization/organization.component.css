@@ -1,0 +1,13 @@
+.org-card-list{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.org-card-container {
+    width: 250px;
+    margin: 20px;
+}

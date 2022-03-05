@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Packages
+1. [Material UI](https://mui.com/components/) -  React component library
+2. [Octokit](https://github.com/octokit/core.js#readme) - OctoKit to work with the [Github API](https://docs.github.com/en/rest)
+3. [React Router v6](https://reactrouterdotcom.fly.dev/docs/en/v6/getting-started/tutorial) - Used to handling routing with in your React application. Currently, as of 3/2022, React Router works best with Functional components. view the functional-components branch for more details
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -13,6 +18,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+The `.env` file has out auth token variable. To generate your own personal token go to your [Settings > Developer Settings > Personal Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 ### `npm test`
 

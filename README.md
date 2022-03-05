@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Packages
 1. [Material UI](https://mui.com/components/) -  React component library
 2. [Octokit](https://github.com/octokit/core.js#readme) - OctoKit to work with the [Github API](https://docs.github.com/en/rest)
-3. [React Router v6](https://reactrouterdotcom.fly.dev/docs/en/v6/getting-started/tutorial) - Used to handling routing with in your React application. Currently, as of 3/2022, React Router works best with Functional components. view the functional-components branch for more details
+3. [React Router v6](https://reactrouterdotcom.fly.dev/docs/en/v6/getting-started/tutorial) - Used to handling routing with in your React application. Currently, as of 3/2022, React Router works best with Functional components. view the [functional-components branch](https://github.com/loiscodes/dc-github-app-react/tree/functional-components) for more details
 
 ## Available Scripts
 

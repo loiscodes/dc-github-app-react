@@ -1,49 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { Octokit } from "@octokit/core";
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import RepoCardComponent from "../Cards/repo-card/repo-card.component";
 import './repo.component.css'
+
 //
-class RepoComponent extends React.Component {
-    constructor(props) {
-    super(props);
-    this.state = { repos: [] };
-    this.octokit = new Octokit({
-      auth: process.env.GITHUB_AUTH_TOKEN
-    });
-  }
-
-  componentDidMount() {
-    this.fetchOrganizationsRepo();
-  }
-
-  fetchOrganizationsRepo = async () => {
-    try {
-      const _results = await this.octokit.request(`GET /orgs/${this.props.params.org}/repos`, {
-        org: "org",
-      });
-      if (_results.status >= 200) {
-        this.setState((originalState) => ({
-          ...originalState,
-          repos: _results.data,
-        }));
+function RepoComponent(props) {
+    // Lifecycle hook: useState, useParams, useEffect
+  const [repos, setRepos] = useState([]);
+    const { org } = useParams();
+  // Like a combination of ComponentDidMount and ComponentDidUpdate
+  // takes a callback function and an array of dependencies so when
+  // the deps change it will trigger an update, if its empty then it 
+  // will run once
+  useEffect(() => {
+    const fetchOrganizationsRepos = async () => {
+    const octokit = new Octokit({ auth: process.env.GITHUB_AUTH_TOKEN });
+      try {
+        const _results = await octokit.request(`GET /orgs/${org}/repos`, {
+            org: 'org'
+          })
+          if(_results.status >= 200){
+            setRepos(_results.data);
+          }
+      } catch {
+        // silently fail
       }
-    } catch {
-      // fail quietly
-    }
-  };
-
-
-  render() {
-    return (
-      <>
-      
+    };
+    fetchOrganizationsRepos();
+  }, [org]);
+  return (
+    <>
     <Link to="/">Go Back</Link>
-    {this.state.repos.length === 0 
-    ? <p>Loading</p>
-    : <div className="repo-card-list">
-      {this.state.repos.map(repo => (
+    {repos.length === 0 
+    ? <p>Loading...</p>
+    :(<div className="repo-card-list">
+      {repos.map(repo => (
         <RepoCardComponent 
             key={repo.id} 
             owner={repo.owner.login}
@@ -53,19 +45,10 @@ class RepoComponent extends React.Component {
             repoUrl={`http://github.com/${repo.full_name}`}
             repoClassName="repo-card-container" />
         
-      ))} 
-      </div>
-  }
+      ))}
+      </div>)}
     </>
-    );
-  }
+  );
 }
 
-const withRouter = (Component) => (props) => {
-    const history = useNavigate();
-    const location = useLocation();
-    const params = useParams(); 
-    return <Component params = {params} history={history} location={location} {...props} />;
-};
-
-export default withRouter(RepoComponent);
+export default RepoComponent;
